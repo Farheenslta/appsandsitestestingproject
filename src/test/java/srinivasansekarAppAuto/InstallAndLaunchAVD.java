@@ -20,7 +20,7 @@ public class InstallAndLaunchAVD
 		dc.setCapability(CapabilityType.BROWSER_NAME, "");
 		dc.setCapability("deviceName", "emulator-5554");
 		dc.setCapability("platformName", "android");
-		dc.setCapability("platformVersion", "5.1.1");
+		dc.setCapability("platformVersion", "8.1.0");
 		dc.setCapability("app", "C:\\Users\\Farheen Sultana\\Downloads\\VodQA.apk");
 		
 		//object creation
