@@ -1,13 +1,17 @@
-package srinivasansekarAppAuto;
+package locators;
 
 import java.net.URL;
 
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileSelector;
 import io.appium.java_client.android.AndroidDriver;
 
-public class LaunchingSiteAVD
+public class MSMobileBy1AccessibilityIdAppSite
 {
 	public static void main(String[] args) throws Exception
 	{
@@ -15,7 +19,7 @@ public class LaunchingSiteAVD
 		Runtime.getRuntime().exec("cmd.exe /c start cmd.exe /k \"appium -a 0.0.0.0 -p 4723\"");
 		//Get address of appium Server
 		URL u=new URL("http://0.0.0.0:4723/wd/hub");
-		//Desired Capabilities of browser and device(AVD)
+		//Desired Capabilities of app and device(AVD)
 		DesiredCapabilities dc=new DesiredCapabilities();
 		dc.setCapability(CapabilityType.BROWSER_NAME,"");
 		dc.setCapability("deviceName","emulator-5554");
@@ -23,7 +27,6 @@ public class LaunchingSiteAVD
 		dc.setCapability("platformVersion","8.1.0");
 		dc.setCapability("appPackage","com.android.dialer");
 		dc.setCapability("appActivity","com.android.dialer.DialtactsActivity");
-		
 		//Object Creation
 		AndroidDriver driver;
 		while(2>1)
@@ -38,10 +41,23 @@ public class LaunchingSiteAVD
 			}
 		}
 		
-		Thread.sleep(10000);
-		//Close site
+		//Automation		
+		try
+		{
+			Thread.sleep(5000);
+			WebDriverWait wait=new WebDriverWait(driver,20);
+			wait.until(ExpectedConditions.elementToBeClickable(MobileBy.AccessibilityId("dial pad")));
+			driver.findElement(MobileSelector.ACCESSIBILITY.toString(),"dial pad").click();
+			//driver.findElement(MobileBy.AccessibilityId("dial pad")).click();
+			//driver.findElementByAccessibilityId("dial pad").click();
+			Thread.sleep(5000);
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+		//Close app
 		driver.closeApp();
-		
 		//Stop appium server
 		Runtime.getRuntime().exec("taskkill /F /IM node.exe");
 		Runtime.getRuntime().exec("taskkill /F /IM cmd.exe");
